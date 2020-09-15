@@ -1,0 +1,6 @@
+.gitignore*.class
+.idea/**
+gradlew.bat
+gradle/
+gradlew
+.DS_Store
