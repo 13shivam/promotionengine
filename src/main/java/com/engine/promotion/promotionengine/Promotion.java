@@ -1,9 +1,11 @@
 package com.engine.promotion.promotionengine;
 
-import com.engine.promotion.dto.request.OrderSKUQuantity;
+import com.engine.promotion.dto.request.RequestOrderSKUs;
 import com.engine.promotion.dto.response.DiscountSKUQuantity;
+
+import java.util.List;
 
 public interface Promotion {
 
-    DiscountSKUQuantity getDiscountAfterPromotion(OrderSKUQuantity orderSKUQuantity);
+    List<DiscountSKUQuantity> getDiscountAfterPromotion(RequestOrderSKUs orderSKUQuantity);
 }
