@@ -10,18 +10,23 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cart {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
-    @Column(name = "sku_id")
-    private Long skuId;
+    @Column(name = "total_amount")
+    private Long totalAmount;
 
-    @JoinColumn(name = "sku_id")
+    @Column(name = "discountApplied")
+    private Boolean discountApplied;
+
+    //@JoinColumn(name = "sku_id")
     @OneToMany(fetch = FetchType.LAZY)
-    private List<StockKeepingUnit> skus;
+    private List<OrderSKU> orderSkus;
 
 }

@@ -5,27 +5,29 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 @Entity
+@Table(name = "order_items")
 @Getter
 @Setter
-@Table(name = "sku_prices")
 @Builder
-public class StockKeepingUnitPrice {
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderSKU {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sku_id", nullable = false, unique = true)
-    private StockKeepingUnit sku;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "sku_id")
-    private Long skuId;
+    @OneToOne
+    private StockKeepingUnit sku;
 
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
+
+    @Column(name = "quantity")
+    private Long quantity;
 
 }

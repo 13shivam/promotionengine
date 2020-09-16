@@ -1,8 +1,6 @@
 package com.engine.promotion.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,15 +10,14 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class NItemsPromotionConfig extends PromotionConfig {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-
-    @Column(name = "sku_id")
-    private Long skuId;
+    private Long id;
 
     @Column(name = "quantity")
     private Long quantity;
@@ -28,9 +25,14 @@ public class NItemsPromotionConfig extends PromotionConfig {
     @Column(name = "discount_factor")
     private BigDecimal discountFactor;
 
-    @JoinColumn(name = "sku_id")
-    @OneToOne(fetch = FetchType.EAGER)
-    private StockKeepingUnit skus;
+/*    @Column(name = "sku_id", insertable = false, updatable = false)
+    private Long skuId;*/
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "sku_id")
+    private StockKeepingUnit skus;
 
 }

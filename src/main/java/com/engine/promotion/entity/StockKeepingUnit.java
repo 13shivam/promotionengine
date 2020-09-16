@@ -1,29 +1,31 @@
 package com.engine.promotion.entity;
 
-import com.google.common.collect.Lists;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "skus")
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class StockKeepingUnit {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "sku", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<StockKeepingUnitPrice> skuPrices = Lists.newArrayList();
+    @Column(name = "unit_price")
+    private BigDecimal unitPrice;
+
+    @Column(name = "quantity")
+    private Long quantity;
+
 
 }
