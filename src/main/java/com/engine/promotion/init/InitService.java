@@ -38,8 +38,6 @@ public class InitService {
     public void init() {
         this.setupSKUs();
         this.setupPromotionConfig();
-        this.setupOrderSKU();
-        this.setupCarts();
     }
 
     private void setupSKUs() {
@@ -68,22 +66,14 @@ public class InitService {
                 .id(1l).isActive(Boolean.TRUE).skus(A).quantity(3l).build();
         aItemsPromotion.setType(PromotionConfig.Type.N_ITEMS_PROMO);
         aItemsPromotion.setName("PACK_OF_3");
+        nItemsPromotionRepository.save(aItemsPromotion);
         //For B
         StockKeepingUnit B = skuRepository.findById(2l).get();
-        NItemsPromotionConfig bItemsPromotion = NItemsPromotionConfig.builder().discountFactor(BigDecimal.valueOf(25))
+        NItemsPromotionConfig bItemsPromotion = NItemsPromotionConfig.builder().discountFactor(BigDecimal.valueOf(0.25))
                 .id(2l).isActive(Boolean.TRUE).skus(B).quantity(2l).build();
         bItemsPromotion.setType(PromotionConfig.Type.N_ITEMS_PROMO);
         bItemsPromotion.setName("PACK_OF_2");
-        nItemsPromotionRepository.saveAll(Arrays.asList(bItemsPromotion, aItemsPromotion));
+        nItemsPromotionRepository.save(bItemsPromotion);
     }
-
-    private void setupOrderSKU() {
-
-    }
-
-    private void setupCarts() {
-
-    }
-
 
 }

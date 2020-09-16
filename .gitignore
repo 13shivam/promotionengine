@@ -5,3 +5,4 @@ gradle/
 gradlew
 .DS_Store
 build/
+.gradle/
