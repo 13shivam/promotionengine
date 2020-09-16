@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -22,9 +23,9 @@ public class FixedComboPromotion implements Promotion {
     //Applied for Combo SKUs (A+B) promotions
     @Override
     public List<PromotionConfig> getDiscountAfterPromotion(RequestOrderSKUs requestOrderSKUs) {
-        List<Long> skuIds = requestOrderSKUs.getOrderSKUQuantity().stream().map(orderSKUs -> orderSKUs.getSkuId()).collect(Collectors.toList());
-        ComboPromotionConfig promotionBySKUId = comboPromotionRepository.findPromotionBySKUId(skuIds);
-        return Arrays.asList(promotionBySKUId);
+        Set<Long> skuIds = requestOrderSKUs.getOrderSKUQuantity().stream().map(orderSKUs -> orderSKUs.getSkuId()).collect(Collectors.toSet());
+        List<ComboPromotionConfig> promotionBySKUId = comboPromotionRepository.findPromotionBySKUId();
+        return promotionBySKUId.stream().map(x->(PromotionConfig)x).collect(Collectors.toList());
     }
 
 }

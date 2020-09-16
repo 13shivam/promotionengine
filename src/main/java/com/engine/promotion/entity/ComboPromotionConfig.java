@@ -30,8 +30,8 @@ public class ComboPromotionConfig extends PromotionConfig {
     @JoinColumn(name = "combine_fixed_price")
     private BigDecimal combineFixedPrice;
 
-    @OneToMany(fetch = FetchType.LAZY)
-   // @JoinColumn(name = "sku_id")
+    @OneToMany(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "sku_id")
     private List<StockKeepingUnit> skus;
 
 }

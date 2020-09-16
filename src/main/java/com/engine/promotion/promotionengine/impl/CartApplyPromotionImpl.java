@@ -86,8 +86,13 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
     public ResponseOrderSKUs applyPromotions(CartPromotionsBO cartPromotionsBO) {
         List<SKUPriceDto> totalNItemDiscount = this.getTotalNItemDiscount(cartPromotionsBO.getNItemsPromotions(), cartPromotionsBO.getOrderSKUS(), cartPromotionsBO);
         List<SKUPriceDto> totalComboDiscount = this.getTotalComboDiscount(cartPromotionsBO.getFixedComboPromotionList(), cartPromotionsBO.getOrderSKUS(), cartPromotionsBO);
-
-        return null;
+        ResponseOrderSKUs response = new ResponseOrderSKUs();
+        response.getOrderSKUQuantity().addAll(totalNItemDiscount);
+        response.getOrderSKUQuantity().addAll(totalComboDiscount);
+        response.getOrderSKUQuantity().addAll(cartPromotionsBO.getNonDiscountedSKUs());
+        BigDecimal netAmount = response.getOrderSKUQuantity().stream().map(SKUPriceDto::getAmount).reduce(BigDecimal::add).get();
+        response.setNetAmount(netAmount);
+        return response;
     }
 
     private List<SKUPriceDto> getTotalComboDiscount(PromotionConfig fixedComboProm, List<OrderSKU> orderSKUS, CartPromotionsBO cartPromotionsBO) {
@@ -97,9 +102,11 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
                 .collect(Collectors.toMap(orderSKU -> orderSKU.getSku().getId(), Function.identity()));
             ComboPromotionConfig comboPromotionConfig = (ComboPromotionConfig) fixedComboProm;
             Set<Long> combineIds = comboPromotionConfig.getSkus().stream().map(x -> x.getId()).collect(Collectors.toSet());
-            Set<String> names = comboPromotionConfig.getSkus().stream().map(x -> x.getName()).collect(Collectors.toSet());
+        Set<Long> orderSKUIds = orderSKUMap.entrySet().stream().map(x -> x.getKey()).collect(Collectors.toSet())
+                .stream().filter(x -> combineIds.contains(x)).collect(Collectors.toSet());
+        Set<String> names = comboPromotionConfig.getSkus().stream().map(x -> x.getName()).collect(Collectors.toSet());
             Boolean comboPromoExhausted = Boolean.FALSE;
-        while (!comboPromoExhausted) {
+        while (orderSKUIds.size() == combineIds.size() && !comboPromoExhausted) {
             for (Long skuId : combineIds) {
                 orderSKUMap.get(skuId).setQuantity(orderSKUMap.get(skuId).getQuantity() - 1);
             }
@@ -124,7 +131,11 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
         }
         //Collect Left out SKUs
         for (Long skuId : combineIds) {
-            Long leftQuantity = orderSKUMap.get(skuId).getQuantity();
+            OrderSKU orderSKU = orderSKUMap.get(skuId);
+            if(orderSKU == null){
+                continue;
+            }
+            Long leftQuantity = orderSKU.getQuantity();
             if (leftQuantity > 0) {
                 SKUPriceDto leftSKU = SKUPriceDto.builder().isComboOffer(false).quantity(leftQuantity)
                         .skuId(new HashSet<Long>(Arrays.asList(orderSKUMap.get(skuId).getId())))
@@ -138,7 +149,7 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
     }
 
     private List<SKUPriceDto> getTotalNItemDiscount(List<PromotionConfig> nItemsPromotions, List<OrderSKU> orderSKUS, CartPromotionsBO cartPromotionsBO) {
-        log.info("");
+        List<SKUPriceDto> result = new ArrayList<>();
         Map<Long, OrderSKU> orderSKUMap = orderSKUS
                 .stream()
                 .collect(Collectors.toMap(orderSKU -> orderSKU.getSku().getId(), Function.identity()));
@@ -159,6 +170,12 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
                     .build();
             Long packQty = promotionsSKUOffer.get(skuId).getQuantity();
             Long orderQty = orderSKUMap.get(skuId).getQuantity();
+            Long offerApplyQty = orderQty / packQty;
+            BigDecimal offerAmount = promotionsSKUOffer.get(skuId).getFixedPrice().multiply(BigDecimal.valueOf(offerApplyQty));
+            skuPriceDto.setAmount(offerAmount);
+            skuPriceDto.setQuantity(packQty * offerApplyQty);
+            result.add(skuPriceDto);
+            //
             Long leftSKUQty = orderQty % packQty;
             if(leftSKUQty > 0){
                 SKUPriceDto leftSkuPriceDto = SKUPriceDto.builder().name(Collections.singleton(orderSKUMap.get(skuId).getSku().getName()))
@@ -171,9 +188,10 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
                 cartPromotionsBO.getNonDiscountedSKUs().add(leftSkuPriceDto);
             }
 
+
         }
         //orderSKUMap.get();
         //nItemsPromotions.stream()
-        return null;
+        return result;
     }
 }

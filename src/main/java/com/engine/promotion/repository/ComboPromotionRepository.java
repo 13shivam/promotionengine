@@ -10,7 +10,6 @@ public interface ComboPromotionRepository extends JpaRepository<ComboPromotionCo
 
     @Query("SELECT CPC " +
             "FROM ComboPromotionConfig CPC " +
-            "INNER JOIN FETCH CPC.skus SK " +
-            "WHERE SK.id IN (:skuIds) ")
-    ComboPromotionConfig findPromotionBySKUId(List<Long> skuIds);
+            "INNER JOIN FETCH CPC.skus SK ")
+    List<ComboPromotionConfig> findPromotionBySKUId();
 }
