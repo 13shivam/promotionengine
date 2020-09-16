@@ -5,9 +5,7 @@ import com.engine.promotion.dto.request.RequestOrderSKUs;
 import com.engine.promotion.dto.response.SKUPriceDto;
 import com.engine.promotion.dto.response.ResponseOrderSKUs;
 import com.engine.promotion.entity.*;
-import com.engine.promotion.promotionengine.ApplyPromotion;
-import com.engine.promotion.promotionengine.CartPromotionsBO;
-import com.engine.promotion.promotionengine.Promotion;
+import com.engine.promotion.promotionengine.*;
 import com.engine.promotion.repository.CartRepository;
 import com.engine.promotion.repository.SKURepository;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +24,11 @@ import java.util.stream.Collectors;
 public class CartApplyPromotionImpl implements ApplyPromotion {
 
     @Autowired
-    @Qualifier("FixedComboPromotion")
-    private Promotion fixedItemPromotion;
+    private FixedComboPromotion fixedItemPromotion;
 
     @Autowired
-    @Qualifier("NItemsPromotion")
-    private Promotion nItemPromotion;
+    private NItemsPromotion nItemPromotion;
 
-    @Autowired
-    private CartRepository cartRepository;
 
     @Autowired
     private SKURepository skuRepository;
@@ -42,8 +36,8 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
 
     @Override
     public CartPromotionsBO createPromotionBO(RequestOrderSKUs requestOrderSKUs) {
-        PromotionConfig comboPromotions = this.fixedItemPromotion.getDiscountAfterPromotion(requestOrderSKUs).get(0);
-        List<PromotionConfig> nItemPromotions = this.nItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
+        PromotionConfig comboPromotions = fixedItemPromotion.getDiscountAfterPromotion(requestOrderSKUs).get(0);
+        List<PromotionConfig> nItemPromotions = nItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
         List<OrderSKU> orderSKUS = this.setupCartOrderSKUs(requestOrderSKUs);
         BigDecimal totalCartAmount = this.getCartTotal(orderSKUS);
         CartPromotionsBO cartPromotionsBO = CartPromotionsBO.builder().cartId(requestOrderSKUs.getCartId())
