@@ -20,10 +20,6 @@ public class ComboPromotionConfig extends PromotionConfig {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
- /*   @Column(name = "sku_id", insertable = false, updatable = false)
-    private Long skuId;*/
-
-
     @Column(name = "is_active")
     private Boolean isActive;
 
@@ -31,7 +27,6 @@ public class ComboPromotionConfig extends PromotionConfig {
     private BigDecimal combineFixedPrice;
 
     @OneToMany(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "sku_id")
     private List<StockKeepingUnit> skus;
 
 }

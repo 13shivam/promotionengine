@@ -25,7 +25,6 @@ public class Cart {
     @Column(name = "discountApplied")
     private Boolean discountApplied;
 
-    //@JoinColumn(name = "sku_id")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderSKU> orderSkus;
 

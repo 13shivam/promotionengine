@@ -190,8 +190,6 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
 
 
         }
-        //orderSKUMap.get();
-        //nItemsPromotions.stream()
         return result;
     }
 }

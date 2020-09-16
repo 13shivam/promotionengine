@@ -25,14 +25,10 @@ public class NItemsPromotionConfig extends PromotionConfig {
     @Column(name = "fixed_price")
     private BigDecimal fixedPrice;
 
-/*    @Column(name = "sku_id", insertable = false, updatable = false)
-    private Long skuId;*/
-
     @Column(name = "is_active")
     private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "sku_id")
     private StockKeepingUnit skus;
 
 }
