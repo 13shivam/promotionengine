@@ -65,10 +65,10 @@ public class CartApplyPromotionImplTest {
         MockitoAnnotations.initMocks(this);
         ResponseOrderSKUs responseOrderSKUs = cartApplyPromotion.applyPromotions(cartPromotionsBO);
         Assert.assertEquals("Discount Cart Amount is 100", BigDecimal.valueOf(100l), responseOrderSKUs.getNetAmount());
-        System.out.println("--------------------------------Scenario-1-------------------------------------------------");
+        System.out.println("--------------------------------Scenario-1----------------------------------------------------");
         System.out.println("Before Discount Cart Value:" + cartPromotionsBO.getNetAmount());
         System.out.println("After Discount Cart Value:" + responseOrderSKUs.getNetAmount());
-        System.out.println("--------------------------------Scenario-1-------------------------------------------------");
+        System.out.println("--------------------------------Scenario-1-Ends------------------------------------------------");
     }
 
     //Scenario 2
@@ -92,10 +92,10 @@ public class CartApplyPromotionImplTest {
         MockitoAnnotations.initMocks(this);
         ResponseOrderSKUs responseOrderSKUs = cartApplyPromotion.applyPromotions(cartPromotionsBO);
         Assert.assertEquals("Discount Cart Amount is 370", BigDecimal.valueOf(370l), responseOrderSKUs.getNetAmount());
-        System.out.println("--------------------------------Scenario-2-------------------------------------------------");
+        System.out.println("--------------------------------Scenario-2----------------------------------------------------");
         System.out.println("Before Discount Cart Value:" + cartPromotionsBO.getNetAmount());
         System.out.println("After Discount Cart Value:" + responseOrderSKUs.getNetAmount());
-        System.out.println("--------------------------------Scenario-2-------------------------------------------------");
+        System.out.println("--------------------------------Scenario-2-Ends------------------------------------------------");
     }
 
     //Scenario 3
@@ -119,10 +119,10 @@ public class CartApplyPromotionImplTest {
         MockitoAnnotations.initMocks(this);
         ResponseOrderSKUs responseOrderSKUs = cartApplyPromotion.applyPromotions(cartPromotionsBO);
         Assert.assertEquals("Discount Cart Amount is 280", BigDecimal.valueOf(280l), responseOrderSKUs.getNetAmount());
-        System.out.println("--------------------------------Scenario-3-------------------------------------------------");
+        System.out.println("--------------------------------Scenario-3-----------------------------------------------------");
         System.out.println("Before Discount Cart Value:" + cartPromotionsBO.getNetAmount());
         System.out.println("After Discount Cart Value:" + responseOrderSKUs.getNetAmount());
-        System.out.println("--------------------------------Scenario-3-------------------------------------------------");
+        System.out.println("--------------------------------Scenario-3-Ends------------------------------------------------");
 
     }
 }
