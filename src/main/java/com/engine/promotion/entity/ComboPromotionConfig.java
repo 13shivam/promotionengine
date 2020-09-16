@@ -15,6 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 public class ComboPromotionConfig extends PromotionConfig {
 
+    /*
+  Maintains Combo-Items Promotion Configuration
+   */
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

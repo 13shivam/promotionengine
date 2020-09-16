@@ -14,6 +14,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class NItemsPromotionConfig extends PromotionConfig {
 
+    /*
+    Maintains N-Items Promotion Configuration
+     */
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
