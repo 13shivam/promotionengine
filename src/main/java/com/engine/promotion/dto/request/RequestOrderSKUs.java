@@ -10,6 +10,9 @@ import java.util.List;
 @Setter
 public class RequestOrderSKUs {
 
+    @JsonProperty("cart_id")
+    private Long cartId;
+
     @JsonProperty("order_details")
     private List<OrderSKUQuantity> orderSKUQuantity;
 }

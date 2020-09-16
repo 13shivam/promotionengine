@@ -33,8 +33,8 @@ public class ApplyPromotionImpl implements ApplyPromotion {
 
     @Override
     public CartPromotionsBO createPromotionBO(RequestOrderSKUs requestOrderSKUs) {
-        List<PromotionConfig> discountAfterPromotion1 = fixedItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
-        List<PromotionConfig> discountAfterPromotion = nItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
+        List<PromotionConfig> comboPromotions = fixedItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
+        List<PromotionConfig> nItemPromotions = nItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
         return null;
     }
 
