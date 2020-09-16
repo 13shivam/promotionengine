@@ -5,6 +5,7 @@ import com.engine.promotion.dto.response.DiscountSKUQuantity;
 import com.engine.promotion.dto.response.ResponseOrderSKUs;
 import com.engine.promotion.entity.ComboPromotionConfig;
 import com.engine.promotion.entity.NItemsPromotionConfig;
+import com.engine.promotion.entity.PromotionConfig;
 import com.engine.promotion.promotionengine.ApplyPromotion;
 import com.engine.promotion.promotionengine.CartPromotionsBO;
 import com.engine.promotion.promotionengine.Promotion;
@@ -32,8 +33,8 @@ public class ApplyPromotionImpl implements ApplyPromotion {
 
     @Override
     public CartPromotionsBO createPromotionBO(RequestOrderSKUs requestOrderSKUs) {
-        List<DiscountSKUQuantity> discountAfterPromotion1 = fixedItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
-        List<DiscountSKUQuantity> discountAfterPromotion = nItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
+        List<PromotionConfig> discountAfterPromotion1 = fixedItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
+        List<PromotionConfig> discountAfterPromotion = nItemPromotion.getDiscountAfterPromotion(requestOrderSKUs);
         return null;
     }
 
