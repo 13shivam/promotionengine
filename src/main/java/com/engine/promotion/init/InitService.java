@@ -17,7 +17,7 @@ import java.util.List;
 public class InitService {
 
     /*
-    Setting up Database entries for Demo Project
+    Setting up Database entries for Demo
      */
     @Autowired
     private CartRepository cartRepository;

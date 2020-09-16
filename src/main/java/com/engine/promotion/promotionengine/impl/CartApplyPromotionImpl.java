@@ -146,6 +146,11 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
         return discount;
     }
 
+    /*
+   Lists all the SKU which care eligible of Pack of N-Items Discount
+   Also Lists all the SKU which are left out after N-Items Discount is exhausted
+    */
+
     private List<SKUPriceDto> getTotalNItemDiscount(List<PromotionConfig> nItemsPromotions, List<OrderSKU> orderSKUS, CartPromotionsBO cartPromotionsBO) {
         List<SKUPriceDto> result = new ArrayList<>();
         Map<Long, OrderSKU> orderSKUMap = orderSKUS
