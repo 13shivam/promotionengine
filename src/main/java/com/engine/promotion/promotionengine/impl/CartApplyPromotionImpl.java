@@ -89,6 +89,10 @@ public class CartApplyPromotionImpl implements ApplyPromotion {
         return response;
     }
 
+    /*
+    Lists all the SKU which care eligible of Combined Discount
+    Also Lists all the SKU which are left out after Combined Discount is exhausted
+     */
     private List<SKUPriceDto> getTotalComboDiscount(PromotionConfig fixedComboProm, List<OrderSKU> orderSKUS, CartPromotionsBO cartPromotionsBO) {
         List<SKUPriceDto> discount = new ArrayList<SKUPriceDto>();
         Map<Long, OrderSKU> orderSKUMap = orderSKUS
