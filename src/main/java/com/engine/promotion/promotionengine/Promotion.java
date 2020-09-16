@@ -1,7 +1,6 @@
 package com.engine.promotion.promotionengine;
 
 import com.engine.promotion.dto.request.RequestOrderSKUs;
-import com.engine.promotion.dto.response.DiscountSKUQuantity;
 import com.engine.promotion.entity.PromotionConfig;
 
 import java.util.List;

@@ -29,9 +29,6 @@ public class InitService {
     private NItemsPromotionRepository nItemsPromotionRepository;
 
     @Autowired
-    private OrderSKURepository orderSKURepository;
-
-    @Autowired
     private SKURepository skuRepository;
 
     @PostConstruct
@@ -62,14 +59,14 @@ public class InitService {
         //Setting Up N-th Promotions
         //For A
         StockKeepingUnit A = skuRepository.findById(1l).get();
-        NItemsPromotionConfig aItemsPromotion = NItemsPromotionConfig.builder().discountFactor(BigDecimal.valueOf(0.133))
+        NItemsPromotionConfig aItemsPromotion = NItemsPromotionConfig.builder().fixedPrice(BigDecimal.valueOf(130l))
                 .id(1l).isActive(Boolean.TRUE).skus(A).quantity(3l).build();
         aItemsPromotion.setType(PromotionConfig.Type.N_ITEMS_PROMO);
         aItemsPromotion.setName("PACK_OF_3");
         nItemsPromotionRepository.save(aItemsPromotion);
         //For B
         StockKeepingUnit B = skuRepository.findById(2l).get();
-        NItemsPromotionConfig bItemsPromotion = NItemsPromotionConfig.builder().discountFactor(BigDecimal.valueOf(0.25))
+        NItemsPromotionConfig bItemsPromotion = NItemsPromotionConfig.builder().fixedPrice(BigDecimal.valueOf(45l))
                 .id(2l).isActive(Boolean.TRUE).skus(B).quantity(2l).build();
         bItemsPromotion.setType(PromotionConfig.Type.N_ITEMS_PROMO);
         bItemsPromotion.setName("PACK_OF_2");

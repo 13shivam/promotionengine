@@ -11,5 +11,5 @@ import java.util.List;
 public class ResponseOrderSKUs {
 
     @JsonProperty("discount_items")
-    private List<DiscountSKUQuantity> orderSKUQuantity;
+    private List<SKUPriceDto> orderSKUQuantity;
 }

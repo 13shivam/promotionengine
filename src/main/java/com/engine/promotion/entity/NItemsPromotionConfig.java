@@ -22,8 +22,8 @@ public class NItemsPromotionConfig extends PromotionConfig {
     @Column(name = "quantity")
     private Long quantity;
 
-    @Column(name = "discount_factor")
-    private BigDecimal discountFactor;
+    @Column(name = "fixed_price")
+    private BigDecimal fixedPrice;
 
 /*    @Column(name = "sku_id", insertable = false, updatable = false)
     private Long skuId;*/

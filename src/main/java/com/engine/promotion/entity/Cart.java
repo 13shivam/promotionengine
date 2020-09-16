@@ -16,7 +16,7 @@ public class Cart {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "total_amount")
@@ -26,7 +26,7 @@ public class Cart {
     private Boolean discountApplied;
 
     //@JoinColumn(name = "sku_id")
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderSKU> orderSkus;
 
 }
